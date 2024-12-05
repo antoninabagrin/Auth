@@ -17,6 +17,7 @@ import {
   Typography,
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
+import { boolean } from 'yup';
 
 export default function SignUp() {
   const [open, setOpen] = React.useState(false);
@@ -73,11 +74,12 @@ export default function SignUp() {
   });
 
   const checkDisableJoinButton = () => {
+    console.log(formik.values);
     return !formik.values.acceptTerms;
   };
 
   return (
-    <Grid container direction='row' justifyContent='center' alignItems='center'>
+    <div>
       <TermsDialog
         open={open}
         setOpen={setOpen}
@@ -85,17 +87,18 @@ export default function SignUp() {
       />
       <Container maxWidth='sm'>
         <Box
-          sx={{
-            margin: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
+          margin={'10px'}
+          display={'flex'}
+          flexDirection={'column'}
+          alignItems={'center'}
+          justifyContent={'center'}
         >
-          <Avatar />
-          <Typography component='h1' variant='h5'>
-            {t('Sign up')}
-          </Typography>
+          <Box display={'flex'} flexDirection={'column'} alignItems={'center'}>
+            <Avatar />
+            <Typography component='h1' variant='h5'>
+              {t('Sign up')}
+            </Typography>
+          </Box>
           <Box component='form' onSubmit={formik.handleSubmit}>
             <TextField
               margin='normal'
@@ -192,24 +195,36 @@ export default function SignUp() {
             {formik.touched.acceptTerms && formik.errors.acceptTerms && (
               <div style={errorStyle}>{formik.errors.acceptTerms}</div>
             )}
-
-            <Button
+            <button
+              className='joinButton'
+              type='button'
+              disabled={checkDisableJoinButton()}
+            >
+              Join!
+            </button>
+            {/* <button
+              type='submit'
+              className='myButton'
+              disabled={checkDisableJoinButton()}
+            >
+              {t('Join')}
+            </button> */}
+            {/* <Button
               type='submit'
               fullWidth
               variant='contained'
               disabled={checkDisableJoinButton()}
             >
-              {t('Join')}
-            </Button>
-
-            <Grid container justifyContent={'flex-end'}>
+              {t('Join')} */}
+            {/* </Button> */}
+            <Box display={'flex'} justifyContent={'flex-end'}>
               <Link href='/signin' variant='body2'>
                 {t('Already have an account? Sign in!')}
               </Link>
-            </Grid>
+            </Box>
           </Box>
         </Box>
       </Container>
-    </Grid>
+    </div>
   );
 }

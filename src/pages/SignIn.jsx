@@ -1,6 +1,5 @@
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
@@ -13,8 +12,9 @@ import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from '../utils/axios';
 import { useDispatch } from 'react-redux';
-import { handleLogin, setIsAuth } from '../features/user/userSlice';
+import { setIsAuth } from '../features/user/userSlice';
 import { useTranslation } from 'react-i18next';
+import './styling/Buttons.scss';
 
 export default function SignIn() {
   const [username, setUsername] = useState();
@@ -28,10 +28,6 @@ export default function SignIn() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const data = new FormData(e.currentTarget);
-    setUsername(data.get('username'));
-    setPassword(data.get('password'));
 
     if (username && password) {
       const res = await axios.post('/auth/signin', { username, password });
@@ -60,7 +56,7 @@ export default function SignIn() {
         <Typography component='h1' variant='h5'>
           {t('Sign in')}
         </Typography>
-        <Box component='form' onSubmit={handleSubmit}>
+        <Box component='form'>
           <TextField
             margin='normal'
             required
@@ -87,20 +83,17 @@ export default function SignIn() {
             control={<Checkbox value='remember' color='primary' />}
             label={t('Remember me')}
           />
-          <Button
-            type='submit'
-            fullWidth
-            variant='contained'
-            onClick={handleLogin}
-          >
+
+          <a href='#' className='myButton' onClick={handleSubmit}>
             {t('Sign In')}
-          </Button>
+          </a>
           <Grid container>
             <Grid item xs>
               <Link href='#' variant='body2'>
                 {t('Forgot password?')}
               </Link>
             </Grid>
+
             <Grid item>
               <Link href='/signup' variant='body2'>
                 {t("Don't have an account? Sign Up")}

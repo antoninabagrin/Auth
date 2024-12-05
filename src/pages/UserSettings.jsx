@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
+  Box,
   Button,
   Grid,
   IconButton,
@@ -20,6 +21,7 @@ import axios from '../utils/axios';
 import { useTranslation } from 'react-i18next';
 import { updateUserImage } from '../features/user/userImageSlice';
 import BasicAlerts from '../components/BasicAlerts';
+import './styling/Grid.scss';
 
 export default function UserSettings() {
   const dispatch = useDispatch();
@@ -116,7 +118,7 @@ export default function UserSettings() {
         </Grid>
       ) : (
         <>
-          <Grid item xs={10} md={7}>
+          <Box className='container'>
             {image && (
               <img
                 src={profileImage}
@@ -131,85 +133,75 @@ export default function UserSettings() {
               <Input
                 type='file'
                 id='file'
-                // ref={hiddenFileInput}
                 onChange={handleChangeImage}
                 style={{ display: 'none' }}
                 inputProps={{ accept: 'image/x-png,image/gif,image/jpeg' }}
               />
             </label>
-          </Grid>
-          <Grid item xs={10} md={7}>
+
+            <Box className='boxContainer'>
+              <TextField
+                label={t('Location')}
+                type='text'
+                value={locationChange}
+                autoFocus
+                InputLabelProps={{ shrink: true }}
+                onChange={handleLocationChange}
+                disabled={edit}
+              />
+
+              <TextField
+                className='item'
+                label={t('Number')}
+                type='number'
+                value={numberChange}
+                InputLabelProps={{ shrink: true }}
+                onChange={handleNumberChange}
+                disabled={edit}
+              />
+            </Box>
             <TextField
-              sx={{ maxWidth: '500px' }}
-              margin='normal'
-              label={t('Location')}
-              type='text'
-              value={locationChange}
-              autoFocus
-              fullWidth
-              InputLabelProps={{ shrink: true }}
-              onChange={handleLocationChange}
-              disabled={edit}
-            />
-          </Grid>
-          <Grid item xs={10} md={7}>
-            <TextField
-              sx={{ maxWidth: '500px' }}
-              margin='normal'
-              label={t('Number')}
-              type='number'
-              fullWidth
-              value={numberChange}
-              InputLabelProps={{ shrink: true }}
-              onChange={handleNumberChange}
-              disabled={edit}
-            />
-          </Grid>
-          <Grid item xs={10} md={7}>
-            <TextField
-              sx={{ maxWidth: '500px' }}
-              margin='normal'
+              className='item'
               label={t('Telephone')}
               type='number'
-              fullWidth
               value={telephoneChange}
               autoFocus
               InputLabelProps={{ shrink: true }}
               onChange={handleTelephoneChange}
               disabled={edit}
             />
-          </Grid>
-          <Grid item xs={10} md={7}>
+
             <TextField
-              sx={{ maxWidth: '500px' }}
-              margin='normal'
+              className='item'
               id='address'
               label={t('Address')}
               type='text'
-              fullWidth
               value={addressChange}
               InputLabelProps={{ shrink: true }}
               onChange={handleAddressChange}
               disabled={edit}
             />
-          </Grid>
-          <Grid item xs={10} md={7}>
-            <Button
-              sx={{ maxWidth: '500px' }}
-              size='large'
-              variant='contained'
+
+            <a
+              href='#'
+              className='myButton'
               onClick={() => createUpdateUserDetails()}
-              type='submit'
             >
               {t('Save!')}
-            </Button>
-            <IconButton
-              sx={{ maxWidth: '500px' }}
-              onClick={() => setEdit(!edit)}
+            </a>
+            {/* <Box className='boxContainer'> */}
+            {/* <Button
+              variant='contained'
+              onClick={() => createUpdateUserDetails()}
+              // type='submit'
             >
+              {t('Save!')}
+            </Button> */}
+            <IconButton onClick={() => setEdit(!edit)}>
               <EditIcon />
             </IconButton>
-          </Grid>
+          </Box>
+          {/* </Box> */}
         </>
       )}
     </Grid>

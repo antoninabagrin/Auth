@@ -1,4 +1,4 @@
-import { Button, TextField } from '@mui/material';
+import { TextField } from '@mui/material';
 import { Box } from '@mui/system';
 import axios from '../../utils/axios';
 import React from 'react';
@@ -43,6 +43,7 @@ export default function AddTask() {
     >
       <Box component='form' noValidate onSubmit={handleSubmit}>
         <TextField
+          className='myBox'
           margin='normal'
           required
           fullWidth
@@ -52,6 +53,7 @@ export default function AddTask() {
           onChange={handleTitleChange}
         />
         <TextField
+          className='myBox'
           margin='normal'
           required
           fullWidth
@@ -60,9 +62,9 @@ export default function AddTask() {
           value={description}
           onChange={handleDecriptionChange}
         />
-        <Button onClick={() => handleAddTask()} variant='outlined'>
+        <a href='#' className='myButton' onClick={() => handleAddTask()}>
           {t('Add a task')}
-        </Button>
+        </a>
       </Box>
     </Box>
   );

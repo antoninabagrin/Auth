@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import {
   Grid,
   Paper,
@@ -58,14 +58,13 @@ export default function Dashboard() {
   };
   return (
     <Grid container direction='row' justifyContent='center' alignItems='center'>
-      <AlertDialog
-        open={open}
-        setOpen={setOpen}
-        selectedTaskId={selectedTaskId}
-      />
-      <Grid item>
-        <TaskDialog open={openTask} setOpenTask={setOpenTask} />
-      </Grid>
+      {open && (
+        <AlertDialog
+          open={open}
+          setOpen={setOpen}
+          selectedTaskId={selectedTaskId}
+        />
+      )}
       <Grid item xs={12} md={8} style={{ height: '100%' }}>
         <TableContainer component={Paper} sx={{ marginTop: 5 }}>
           <Table sx={{ minWidth: '580px' }}>
